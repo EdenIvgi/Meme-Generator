@@ -8,19 +8,39 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 
-<body>
+<body onload="onInit()">
+
     <header>
         <h1>Meme-Generator</h1>
-
     </header>
 
+    <h2>Select an image:</h2>
     <section class="gallery">
-
+        <div class="img-container"><img src="img/real-size/003.jpg" onclick="onSelectImg(this)"></div>
+        <div class="img-container"><img src="img/real-size/004.jpg" onclick="onSelectImg(this)"></div>
+        <div class="img-container"><img src="img/real-size/005.jpg" onclick="onSelectImg(this)"></div>
     </section>
+
 
     <section class="editor">
-
+        <input type="color" value="#000000" oninput="onSetColor(this.value)">
+        <input type="text" placeholder="Type here..." oninput="onSetLineText(this.value)">
     </section>
+
+    <div class="download-container">
+        <a href="#" onclick="onDownloadCanvas(this)" download="file-name">Download</a>
+    </div>
+
+    <div class="canvas-container">
+        <canvas height="300"></canvas>
+    </div>
+
+
+    <script src="js/services/meme.service.js"></script>
+    <script src="js/gallery.controller.js"></script>
+    <script src="js/meme.controller.js"></script>
+    <script src="js/main.js"></script>
+
 </body>
 
 </html>
