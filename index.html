@@ -24,7 +24,13 @@
 
     <section class="editor">
         <input type="color" value="#000000" oninput="onSetColor(this.value)">
-        <input type="text" placeholder="Type here..." oninput="onSetLineText(this.value)">
+        <input type="text" placeholder="Enter text..." oninput="onSetLineText(this.value)" onkeydown="onTextKey(event)">
+        <button onclick="onChangeFontSize(4)">A+</button>
+        <button onclick="onChangeFontSize(-4)">A-</button>
+        <button onclick="onAddLine()">Add Line</button>
+        <button onclick="onSwitchLine()">Switch Line</button>
+
+
     </section>
 
     <div class="download-container">
