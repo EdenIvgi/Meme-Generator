@@ -32,8 +32,6 @@ function renderMeme() {
     }
 }
 
-
-
 function drawText(text, x, y, line) {
     gCtx.lineWidth = 2
     gCtx.fillStyle = line.color
