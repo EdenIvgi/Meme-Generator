@@ -1,14 +1,15 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Meme-Generator</title>
-    <link rel="stylesheet" href="css/main.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meme Generator</title>
+    <link rel="stylesheet" href="css/main.css">
 </head>
 
-<body onload="onInit()">
+<body>
     <header class="top-nav">
         <div class="logo">MEME PERFECT</div>
         <nav>
@@ -18,51 +19,56 @@
         </nav>
     </header>
 
-    <section class="main-layout meme-editor">
+    <section class="main-layout meme-editor hidden">
         <div class="meme-area">
-            <canvas height="300"></canvas>
+
+            <canvas></canvas>
             <div class="download-container">
-                <a href="#" onclick="onDownloadCanvas(this)" download="file-name" class="download-btn">Download</a>
+                <a class="download-btn" onclick="onShowGallery()">Add Image</a>
+                <a href="#" onclick="onDownloadCanvas(this)" class="download-btn" download="My-Meme">
+                    Download
+                </a>
             </div>
         </div>
 
-        <div class="editor controls-panel">
-            <input type="color" value="#000000" oninput="onSetColor(this.value)">
+        <div class="controls-panel">
+            <input type="color" value="#000000" oninput="onSetColor(this.value)" />
             <input type="text" placeholder="Enter text..." oninput="onSetLineText(this.value)"
-                onkeydown="onTextKey(event)">
+                onkeydown="onTextKey(event)" />
+
+            <select onchange="onSetFont(this.value)">
+                <option value="Arial">Arial</option>
+                <option value="Impact">Impact</option>
+                <option value="Comic Sans MS">Comic Sans MS</option>
+                <option value="Courier New">Courier New</option>
+            </select>
+
+            <div class="align-controls">
+                <button onclick="onSetAlign('left')">Left</button>
+                <button onclick="onSetAlign('center')">Center</button>
+                <button onclick="onSetAlign('right')">Right</button>
+            </div>
+
             <button onclick="onChangeFontSize(4)">A+</button>
             <button onclick="onChangeFontSize(-4)">A-</button>
+
             <button onclick="onAddLine()">Add Line</button>
             <button onclick="onSwitchLine()">Switch Line</button>
+            <button onclick="onDeleteLine()">Delete Line</button>
         </div>
     </section>
 
-    <section class="gallery hidden">
-        <h2>Select an image:</h2>
-        <div class="img-container"><img src="img/real-size/003.jpg" onclick="onSelectImg(this)"></div>
-        <div class="img-container"><img src="img/real-size/004.jpg" onclick="onSelectImg(this)"></div>
-        <div class="img-container"><img src="img/real-size/005.jpg" onclick="onSelectImg(this)"></div>
+    <section class="gallery">
+
     </section>
-
-    <script>
-        function onShowEditor() {
-            document.querySelector('.meme-editor').classList.remove('hidden')
-            document.querySelector('.gallery').classList.add('hidden')
-        }
-        function onShowGallery() {
-            document.querySelector('.gallery').classList.remove('hidden')
-            document.querySelector('.meme-editor').classList.add('hidden')
-        }
-    </script>
-
-    <script src="js/services/meme.service.js"></script>
-    <script src="js/gallery.controller.js"></script>
-    <script src="js/meme.controller.js"></script>
-    <script src="js/main.js"></script>
 
     <footer class="main-footer">
         <p>&copy; 2025 Eden Ivgi. All rights reserved.</p>
     </footer>
+
+    <script src="js/services/meme.service.js"></script>
+    <script src="js/gallery.controller.js"></script>
+    <script src="js/meme.controller.js"></script>
 </body>
 
 </html>

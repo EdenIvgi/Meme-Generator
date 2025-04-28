@@ -13,6 +13,10 @@ body {
   min-height: 100vh;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .top-nav {
   background-color: #1f2937;
   display: flex;
@@ -20,6 +24,7 @@ body {
   align-items: center;
   padding: 15px 30px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  flex-wrap: wrap;
 }
 
 .top-nav .logo {
@@ -58,12 +63,17 @@ body {
   padding: 20px;
   border-radius: 20px;
   box-shadow: 0 0 12px rgba(0,0,0,0.3);
+  max-width: 100%;
 }
 
 canvas {
   display: block;
   border: 2px solid #444;
   background-color: #fff;
+  max-width: 100vw;
+  max-height: 60vh;
+  width: 100%;
+  height: auto;
 }
 
 .controls-panel {
@@ -78,6 +88,7 @@ canvas {
 
 .controls-panel input[type="color"],
 .controls-panel input[type="text"],
+.controls-panel select,
 .controls-panel button,
 .controls-panel a.download-btn {
   padding: 10px;
@@ -88,6 +99,12 @@ canvas {
 
 .controls-panel input[type="text"] {
   width: 90%;
+}
+
+.controls-panel select {
+  background-color: #f1f1f1;
+  color: #222;
+  font-weight: bold;
 }
 
 .controls-panel button {
@@ -161,7 +178,9 @@ canvas {
 }
 
 .download-btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   background-color: #a855f7;
   color: white;
   text-decoration: none;
@@ -176,4 +195,39 @@ canvas {
 .download-btn:hover {
   background-color: #9333ea;
   transform: scale(1.05);
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .gallery {
+    grid-template-columns: 1fr;
+    padding: 15px;
+  }
+
+  .main-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .meme-area,
+  .controls-panel {
+    width: 90%;
+    margin-bottom: 20px;
+  }
+
+  .controls-panel input[type="text"] {
+    width: 100%;
+  }
+
+  .top-nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .top-nav nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+  }
 }
