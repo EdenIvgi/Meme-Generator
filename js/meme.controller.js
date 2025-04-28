@@ -26,8 +26,8 @@ function loadImage(url) {
     gElImg = new Image()
     gElImg.src = url
     gElImg.onload = () => {
-        gElCanvas.width = gElImg.naturalWidth;
-        gElCanvas.height = gElImg.naturalHeight;
+        gElCanvas.width = gElImg.naturalWidth
+        gElCanvas.height = gElImg.naturalHeight
 
         const meme = getMeme()
         meme.lines.forEach((line, idx) => {
@@ -127,8 +127,16 @@ function onCanvasClick(ev) {
     renderMeme()
 }
 
-function onSetColor(c) { setColor(c); renderMeme(); }
-function onSetLineText(t) { setLineTxt(t); renderMeme(); }
+function onSetColor(color) {
+    setColor(color)
+    renderMeme()
+}
+
+function onSetLineText(text) {
+    setLineTxt(text)
+    renderMeme()
+}
+
 function onTextKey(ev) {
     if (ev.key === 'Enter') {
         ev.target.value = ''
@@ -136,11 +144,17 @@ function onTextKey(ev) {
         renderMeme()
     }
 }
+
 function onDownloadCanvas(a) {
     a.href = gElCanvas.toDataURL()
     a.download = 'My-Meme'
 }
-function onChangeFontSize(d) { changeFontSize(d); renderMeme(); }
+
+function onChangeFontSize(diff) {
+    changeFontSize(diff)
+    renderMeme()
+}
+
 function onAddLine() {
     const meme = getMeme()
     meme.lines.push({
@@ -156,26 +170,30 @@ function onAddLine() {
     document.querySelector('input[type="text"]').value = ''
     renderMeme()
 }
+
 function onSwitchLine() {
     const meme = getMeme()
     meme.selectedLineIdx = (meme.selectedLineIdx + 1) % meme.lines.length
     renderMeme()
 }
+
 function onSetFont(font) {
     const meme = getMeme()
     if (meme.selectedLineIdx === null) return
     meme.lines[meme.selectedLineIdx].font = font
     renderMeme()
 }
-function onSetAlign(a) {
+
+function onSetAlign(align) {
     const meme = getMeme()
     const line = meme.lines[meme.selectedLineIdx]
-    line.align = a
+    line.align = align
     if (a === 'left') line.x = 50
     if (a === 'center') line.x = gElCanvas.width / 2
     if (a === 'right') line.x = gElCanvas.width - 50
     renderMeme()
 }
+
 function onDeleteLine() {
     const meme = getMeme()
     meme.lines.splice(meme.selectedLineIdx, 1)
