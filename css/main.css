@@ -49,6 +49,17 @@ body {
   background-color: #374151;
 }
 
+h2{
+  text-align: center;
+  font-size: 30px;
+}
+
+h3{
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 150px;
+}
+
 .main-layout {
   flex: 1;
   display: flex;
@@ -86,7 +97,6 @@ canvas {
   min-width: 220px;
 }
 
-.controls-panel input[type="color"],
 .controls-panel input[type="text"],
 .controls-panel select,
 .controls-panel button,
@@ -125,15 +135,30 @@ canvas {
   text-decoration: none;
 }
 
-.controls-panel a.download-btn:hover {
-  background-color: #9333ea;
+.canvas-buttoms{
+  background-color: #c496f1;
+  text-align: center;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: background-color 0.2s;
+  padding: 10px 16px;
+  margin-bottom: 16px;
+}
+.canvas-buttoms:hover{
+  background-color: #b25fff;
 }
 
 .gallery {
+  padding: 30px;
+}
+
+.imgs-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 15px;
-  padding: 30px;
   max-width: 960px;
   margin: auto;
 }
@@ -161,41 +186,30 @@ canvas {
   display: none;
 }
 
+.saved-memes {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  padding: 30px;
+  max-width: 960px;
+  margin: auto;
+}
+
+.saved-container .saved-item img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+}
+
 .main-footer {
   background-color: #1f2937;
   color: #ccc;
   text-align: center;
-  padding: 20px;
   font-size: 14px;
   border-top: 1px solid #374151;
-  margin-top: 60px;
-}
-
-.download-container {
-  margin-top: 15px;
-  display: flex;
-  justify-content: center;
-}
-
-.download-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background-color: #a855f7;
-  color: white;
-  text-decoration: none;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: bold;
-  transition: background-color 0.3s, transform 0.2s;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-}
-
-.download-btn:hover {
-  background-color: #9333ea;
-  transform: scale(1.05);
-  cursor: pointer;
+  margin-top: 112px;
 }
 
 @media (max-width: 600px) {
@@ -230,4 +244,8 @@ canvas {
     justify-content: space-around;
     margin-top: 10px;
   }
+}
+
+.hidden {
+  display: none;
 }
