@@ -64,9 +64,18 @@ function setColor(color) {
 
 function saveMeme(meme, dataUrl) {
     const saved = getSavedMemes()
-    const memento = JSON.parse(JSON.stringify(meme))
-    memento.dataUrl = dataUrl
-    memento.id = Date.now()
+    const memento = {
+        selectedImgId: meme.selectedImgId,
+        lines: meme.lines.map(l => ({ ...l })),
+        emojis: meme.emojis.map(e => ({
+            src: e.src,      // שמירת ה-src בלבד
+            x: e.x,
+            y: e.y,
+            size: e.size
+        })),
+        dataUrl,
+        id: Date.now()
+    }
     saved.push(memento)
     localStorage.setItem(STORAGE_KEY, JSON.stringify(saved))
 }

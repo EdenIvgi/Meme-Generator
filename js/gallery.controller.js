@@ -108,16 +108,27 @@ function onSelectSavedMeme(id) {
   const meme = getMeme()
   meme.lines = savedMeme.lines.map(l => ({ ...l }))
   meme.emojis = savedMeme.emojis
-    ? savedMeme.emojis.map(e => ({ ...e }))
+    ? savedMeme.emojis.map(e => {
+      const img = new Image()
+      img.src = e.src
+      return {
+        src: e.src,
+        img,
+        x: e.x,
+        y: e.y,
+        size: e.size,
+        isDrag: false
+      }
+    })
     : []
   meme.selectedLineIdx = 0
   meme.selectedEmojiIdx = null
 
   const originalUrl = getImgById(savedMeme.selectedImgId).url
   loadImage(originalUrl)
-
   onShowEditor()
 }
+
 
 function onDeleteSavedMeme(id) {
   const remaining = getSavedMemes().filter(m => m.id !== id);

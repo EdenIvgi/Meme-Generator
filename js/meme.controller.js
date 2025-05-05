@@ -19,14 +19,13 @@ const gEmojiSrcs = [
 function onInit() {
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
-
     gElCanvas.addEventListener('click', onCanvasClick)
     gElCanvas.addEventListener('mousedown', onDown)
     gElCanvas.addEventListener('mousemove', onMove)
     gElCanvas.addEventListener('mouseup', onUp)
-    gElCanvas.addEventListener('touchstart', onDown)
-    gElCanvas.addEventListener('touchmove', onMove)
-    gElCanvas.addEventListener('touchend', onUp)
+    gElCanvas.addEventListener('touchstart', onDown, { passive: false })
+    gElCanvas.addEventListener('touchmove', onMove, { passive: false })
+    gElCanvas.addEventListener('touchend', onUp, { passive: false })
     gElCanvas.addEventListener('dragover', ev => ev.preventDefault())
     gElCanvas.addEventListener('drop', onEmojiDrop)
 
@@ -36,7 +35,6 @@ function onInit() {
     renderGallery()
     onShowGallery()
 }
-
 function renderMeme() {
     clearCanvas()
     if (gElImg) gCtx.drawImage(gElImg, 0, 0)
@@ -80,12 +78,22 @@ function onEmojiClick(src) {
 }
 
 function addEmojiToCanvas(src, pos) {
+    const img = new Image()
+    img.src = src
     const meme = getMeme()
     meme.emojis = meme.emojis || []
-    meme.emojis.push({ src, x: pos.x, y: pos.y, size: 40, isDrag: false })
+    meme.emojis.push({
+        src,
+        img,
+        x: pos.x,
+        y: pos.y,
+        size: 40,
+        isDrag: false
+    })
     meme.selectedEmojiIdx = meme.emojis.length - 1
     renderMeme()
 }
+
 
 function onRandomMeme() {
     const imgs = getImgs()
@@ -163,20 +171,32 @@ function drawFrame(line) {
     gCtx.strokeRect(x0 - pad, y0, w + pad * 2, h)
     gCtx.restore()
 }
-
-function drawEmoji(emoji) {
-    const img = new Image()
-    img.src = emoji.src
-    img.onload = () => {
-        gCtx.drawImage(img, emoji.x - emoji.size / 2, emoji.y - emoji.size / 2, emoji.size, emoji.size)
+function drawEmoji(e) {
+    if (!e.img && e.src) {
+        e.img = new Image()
+        e.img.src = e.src
     }
+    if (!e.img || !e.img.complete) return
+    gCtx.drawImage(
+        e.img,
+        e.x - e.size / 2,
+        e.y - e.size / 2,
+        e.size,
+        e.size
+    )
 }
 
 function getEvPos(ev) {
+    ev.preventDefault()
+
+    const point = ev.type.startsWith('touch')
+        ? (ev.touches[0] || ev.changedTouches[0])
+        : ev;
+
     const rect = gElCanvas.getBoundingClientRect()
     return {
-        x: (ev.clientX - rect.left) * (gElCanvas.width / rect.width),
-        y: (ev.clientY - rect.top) * (gElCanvas.height / rect.height)
+        x: (point.clientX - rect.left) * (gElCanvas.width / rect.width),
+        y: (point.clientY - rect.top) * (gElCanvas.height / rect.height)
     }
 }
 
@@ -274,11 +294,14 @@ function onDeleteLine() {
     meme.selectedLineIdx = meme.lines.length - 1
     renderMeme()
 }
-
 function onUploadImg(ev) {
     ev.preventDefault()
+    const fbPopup = window.open('', '_blank')
     const data = gElCanvas.toDataURL('image/png')
-    uploadImg(data, onSuccess)
+    uploadImg(data, uploadedUrl => {
+        const enc = encodeURIComponent(uploadedUrl)
+        fbPopup.location.href = `https://www.facebook.com/sharer/sharer.php?u=${enc}&t=${enc}`
+    })
 }
 
 async function uploadImg(imgData, onSuccess) {
@@ -304,23 +327,10 @@ function onSuccess(uploadedUrl) {
     )
 }
 
-async function onSaveMeme() {
+function onSaveMeme() {
     renderMeme()
-    const meme = getMeme()
-    if (meme.emojis && meme.emojis.length) {
-        await Promise.all(meme.emojis.map(e =>
-            new Promise(res => {
-                const img = new Image()
-                img.src = e.src
-                img.onload = () => {
-                    gCtx.drawImage(img, e.x - e.size / 2, e.y - e.size / 2, e.size, e.size)
-                    res()
-                }
-            })
-        ))
-    }
     const dataUrl = gElCanvas.toDataURL()
-    saveMeme(meme, dataUrl)
+    saveMeme(getMeme(), dataUrl)
     alert('Meme saved!')
 }
 

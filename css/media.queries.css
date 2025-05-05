@@ -1,8 +1,21 @@
-/* Responsive tweaks */
+/* =============== Mobile (phones) =============== */
 @media (max-width: 600px) {
   .gallery {
     padding: 15px;
   }
+  .saved-memes.hidden {
+    display: none !important;
+  }
+
+  .gallery .imgs-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .gallery .img-container {
+    width: 100%;
+  }
+
   .main-layout {
     flex-direction: column;
     align-items: center;
@@ -12,9 +25,15 @@
     width: 90%;
     margin-bottom: 20px;
   }
+
+  .controls-panel {
+    width: 100%;
+    padding: 15px;
+  }
   .controls-panel input[type="text"] {
     width: 100%;
   }
+
   .top-nav {
     flex-direction: column;
     align-items: flex-start;
@@ -25,4 +44,74 @@
     justify-content: space-around;
     margin-top: 10px;
   }
+
+  .control.first-line,
+  .control.second-line {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .control.third-line {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .control.third-line button {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+  .control.third-line .btn {
+    flex: 1 1 auto;
+    text-align: center;
+    padding: 8px;
+    font-size: 0.9rem;
+    border-radius: 8px;
+  }
+
+  .emoji-panel {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  .emojis-window {
+    width: 100%;
+  }
+  .emojis-container {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+  }
+}
+
+/* =============== Tablet =============== */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .gallery .imgs-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+  .gallery .img-container {
+    width: 100%;
+  }
+
+  .meme-area,
+  .controls-panel {
+    width: 80%;
+    margin: 0 auto 25px;
+  }
+  .controls-panel {
+    padding: 20px;
+  }
+
+  .control.third-line button {
+    width: 48px;
+    height: 48px;
+    font-size: 1.1rem;
+  }
+  .control.first-line,
+  .control.second-line,
+  .control.third-line {
+    gap: 10px;
+  }
+
+  .emoji-panel { gap: 8px; }
+  .emojis-container { gap: 8px; }
 }

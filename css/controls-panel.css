@@ -9,7 +9,6 @@
   min-width: 220px;
 }
 
-/* Inputs ו־Select */
 .controls-panel input[type="text"],
 .controls-panel select {
   width: 100%;
@@ -19,7 +18,6 @@
   font-size: 16px;
 }
 
-/* כפתורים רגילים (למעט emoji-nav) */
 .controls-panel button:not(.emoji-nav) {
   background-color: #00c4cc;
   color: white;
@@ -36,7 +34,6 @@
   background-color: #089fa4;
 }
 
-/* Generic control wrapper */
 .control {
   background-color: #336e71;
   border-radius: 4px;
@@ -86,19 +83,14 @@
   margin: 0 4px;
 }
 
-/* First Line */
-.control.first-line {
+.control.first-line,
+.control.second-line{
   display: flex;
-  gap: 8px;
+  justify-content: center; 
+  align-items: center;    
+  gap: 10px;              
 }
 
-/* Second Line */
-.control.second-line {
-  display: flex;
-  gap: 8px;
-}
-
-/* Third Line: כפתורים גדולים ועגולים */
 .control.third-line {
   display: flex;
   justify-content: space-around;
@@ -123,13 +115,11 @@
   transition: background-color 0.2s, transform 0.2s;
 }
 
-/* Hover effect ל־third-line */
 .control.third-line button:hover {
   background-color: #4b9dd0;
   transform: scale(1.1);
 }
 
-/* Tooltip – חלים על כל כפתור עם data-tooltip בתוך .controls-panel */
 .controls-panel button[data-tooltip] {
   position: relative;
 }
