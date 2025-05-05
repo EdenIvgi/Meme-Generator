@@ -118,8 +118,9 @@ function loadImage(src) {
         gElCanvas.width = gElImg.naturalWidth
         gElCanvas.height = gElImg.naturalHeight
         renderMeme()
-    };
+    }
 }
+////////PAGES/////////////
 
 function onShowEditor() {
     renderEmojiPanel()
@@ -127,19 +128,29 @@ function onShowEditor() {
     document.querySelector('.meme-editor').classList.remove('hidden')
     document.querySelector('.gallery').classList.add('hidden')
     document.querySelector('.saved-memes').classList.add('hidden')
+    document.querySelector('.about').classList.add('hidden')
 }
 
 function onShowGallery() {
     document.querySelector('.gallery').classList.remove('hidden')
     document.querySelector('.meme-editor').classList.add('hidden')
     document.querySelector('.saved-memes').classList.add('hidden')
+    document.querySelector('.about').classList.add('hidden')
 }
 
 function onShowSaved() {
     document.querySelector('.saved-memes').classList.remove('hidden')
     document.querySelector('.gallery').classList.add('hidden')
     document.querySelector('.meme-editor').classList.add('hidden')
+    document.querySelector('.about').classList.add('hidden')
     renderSavedMemes()
+}
+
+function onShowAbout() {
+    document.querySelector('.gallery').classList.add('hidden')
+    document.querySelector('.meme-editor').classList.add('hidden')
+    document.querySelector('.saved-memes').classList.add('hidden')
+    document.querySelector('.about').classList.remove('hidden')
 }
 
 function clearCanvas() {
@@ -171,18 +182,19 @@ function drawFrame(line) {
     gCtx.strokeRect(x0 - pad, y0, w + pad * 2, h)
     gCtx.restore()
 }
-function drawEmoji(e) {
-    if (!e.img && e.src) {
-        e.img = new Image()
-        e.img.src = e.src
+
+function drawEmoji(emoji) {
+    if (!emoji.img && emoji.src) {
+        emoji.img = new Image()
+        emoji.img.src = emoji.src
     }
-    if (!e.img || !e.img.complete) return
+    if (!emoji.img || !emoji.img.complete) return
     gCtx.drawImage(
-        e.img,
-        e.x - e.size / 2,
-        e.y - e.size / 2,
-        e.size,
-        e.size
+        emoji.img,
+        emoji.x - emoji.size / 2,
+        emoji.y - emoji.size / 2,
+        emoji.size,
+        emoji.size
     )
 }
 
@@ -221,11 +233,13 @@ function onCanvasClick(ev) {
 }
 
 function onSetColor(color) {
-    setColor(color); renderMeme()
+    setColor(color)
+    renderMeme()
 }
 
 function onSetLineText(text) {
-    setLineTxt(text); renderMeme()
+    setLineTxt(text)
+    renderMeme()
 }
 
 function onTextKey(ev) {
@@ -274,6 +288,8 @@ function onSetFont(font) {
     const meme = getMeme()
     if (meme.selectedLineIdx == null) return
     meme.lines[meme.selectedLineIdx].font = font
+    const inp = document.getElementById('meme-text-input')
+    if (inp) inp.style.fontFamily = font
     renderMeme()
 }
 
@@ -294,6 +310,7 @@ function onDeleteLine() {
     meme.selectedLineIdx = meme.lines.length - 1
     renderMeme()
 }
+
 function onUploadImg(ev) {
     ev.preventDefault()
     const fbPopup = window.open('', '_blank')

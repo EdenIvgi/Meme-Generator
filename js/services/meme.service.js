@@ -68,7 +68,7 @@ function saveMeme(meme, dataUrl) {
         selectedImgId: meme.selectedImgId,
         lines: meme.lines.map(l => ({ ...l })),
         emojis: meme.emojis.map(e => ({
-            src: e.src,      // שמירת ה-src בלבד
+            src: e.src,
             x: e.x,
             y: e.y,
             size: e.size
@@ -86,5 +86,5 @@ function getSavedMemes() {
 }
 
 function getSavedMemeById(id) {
-    return getSavedMemes().find(m => m.id === id)
+    return getSavedMemes().find(meme => meme.id === id)
 }

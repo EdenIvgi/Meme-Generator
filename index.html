@@ -16,7 +16,7 @@
             <button onclick="onShowEditor()">Editor</button>
             <button onclick="onShowGallery()">Gallery</button>
             <button onclick="onShowSaved()">Saved</button>
-            <button>About</button>
+            <button onclick="onShowAbout()">About</button>
         </nav>
     </header>
 
@@ -42,19 +42,22 @@
 
     <section class="main-layout meme-editor hidden">
         <div class="meme-area">
-            <canvas onclick="onCanvasClick(event)"></canvas>
+            <canvas width="600" height="600" onclick="onCanvasClick(event)"></canvas>
         </div>
         <div class="controls-panel">
             <input type="color" value="#000000" oninput="onSetColor(this.value)">
             <input id="meme-text-input" type="text" placeholder="Enter text…" oninput="onSetLineText(this.value)"
                 onkeydown="onTextKey(event)">
-            <select onchange="onSetFont(this.value)">
+            <select id="font-select" onchange="onSetFont(this.value)">
                 <option value="Arial">Arial</option>
                 <option value="Impact">Impact</option>
                 <option value="Comic Sans MS">Comic Sans MS</option>
                 <option value="Courier New">Courier New</option>
+                <option value="sans-serif">Sans-serif</option>
+                <option value="serif">Serif</option>
+                <option value="monospace">Monospace</option>
+                <option value="cursive">Cursive</option>
             </select>
-
             <div class="control emoji-panel">
                 <button class="emoji-nav left" onclick="scrollEmojis(-1)">&lt;</button>
                 <div class="emojis-window">
@@ -93,6 +96,39 @@
                 </div>
             </div>
 
+        </div>
+    </section>
+    <section class="about hidden">
+        <div class="about-content">
+            <h2>About Meme Perfect</h2>
+            <p>
+                Welcome to <strong>Meme Perfect</strong>, the simplest, most fun way to turn your ideas into shareable
+                memes—right in your browser!
+            </p>
+            <ul>
+                <li><strong>Pick or upload any image</strong><br>
+                    Browse our built-in gallery or drop in your own photo and instantly start creating.
+                </li>
+                <li><strong>Add text and emojis</strong><br>
+                    Place, size, color-pick and align multiple lines of custom text. Drag &amp; drop from dozens of
+                    playful
+                    emojis to add personality.
+                </li>
+                <li><strong>Style your way</strong><br>
+                    Choose from a selection of fonts, adjust sizes, and fine-tune your design with flexible layout
+                    controls.
+                </li>
+                <li><strong>Save, download or share</strong><br>
+                    Keep all your creations in-app, export as a high-quality PNG, or publish directly to Facebook.
+                </li>
+            </ul>
+            <p>
+                Built with simplicity in mind, Meme Perfect runs entirely in your browser—no sign-ups, no installs.
+                Every
+                feature is optimized for quick, on-the-fly meme-making: tap or click to add, drag to reposition, and
+                you’re
+                ready to laugh (or go viral!).
+            </p>
         </div>
     </section>
 
