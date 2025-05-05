@@ -1,0 +1,8 @@
+body {
+  background: linear-gradient(to right, #37c1b6, #336e71);
+  font-family: Arial, sans-serif;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}

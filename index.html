@@ -2,10 +2,11 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Meme Generator</title>
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/main.css" />
+    <script src="https://kit.fontawesome.com/6e26e49704.js" crossorigin="anonymous"></script>
 </head>
 
 <body onload="onInit()">
@@ -21,32 +22,31 @@
 
     <section class="gallery">
         <h2>Select image to edit</h2>
+        <div class="gallery-filter">
+            <input list="keywords" class="filter-input" placeholder="Search photo…"
+                oninput="onFilterGallery(this.value)">
+            <datalist id="keywords"></datalist>
+            <button class="btn-clear" onclick="onFilterGallery('')" title="Clear filter">✕</button>
+            <button class="btn-random" onclick="onRandomMeme()"><i class="fa-solid fa-shuffle"></i> Shuffle</button>
+        </div>
+
+        <div id="keyword-cloud"></div>
         <div class="imgs-container"></div>
     </section>
 
     <section class="saved-memes hidden">
         <h3>Saved Memes</h3>
-        <div class="saved-container imgs-container"></div>
+        <div class="saved-container imgs-container">
+        </div>
     </section>
 
     <section class="main-layout meme-editor hidden">
         <div class="meme-area">
-            <canvas height="300" onclick="onCanvasClick(event)"></canvas>
-            <div>
-                <button class="canvas-buttoms" onclick="onRandomMeme()"><i class="fa-solid fa-shuffle"></i></button>
-                <a class="canvas-buttoms" onclick="onShowGallery()"><i class="fa-solid fa-image"></i></a>
-                <a href="#" class="canvas-buttoms" onclick="onDownloadCanvas(this)" download="My-Meme"><i
-                        class="fa-solid fa-download"></i></a>
-                <form onsubmit="onUploadImg(event)">
-                    <button type="submit" class="canvas-buttoms"><i class="fa-solid fa-share"></i></button>
-                </form>
-                <div class="share-container"></div>
-            </div>
+            <canvas onclick="onCanvasClick(event)"></canvas>
         </div>
-
         <div class="controls-panel">
             <input type="color" value="#000000" oninput="onSetColor(this.value)">
-            <input type="text" placeholder="Enter text..." oninput="onSetLineText(this.value)"
+            <input id="meme-text-input" type="text" placeholder="Enter text…" oninput="onSetLineText(this.value)"
                 onkeydown="onTextKey(event)">
             <select onchange="onSetFont(this.value)">
                 <option value="Arial">Arial</option>
@@ -54,26 +54,52 @@
                 <option value="Comic Sans MS">Comic Sans MS</option>
                 <option value="Courier New">Courier New</option>
             </select>
-            <div class="align-controls">
-                <button onclick="onSetAlign('left')"><i class="fa-solid fa-align-left"></i></i></button>
-                <button onclick="onSetAlign('center')"><i class="fa-solid fa-align-center"></i></i></button>
-                <button onclick="onSetAlign('right')"><i class="fa-solid fa-align-right"></i></i></button>
+
+            <div class="control emoji-panel">
+                <button class="emoji-nav left" onclick="scrollEmojis(-1)">&lt;</button>
+                <div class="emojis-window">
+                    <div class="emojis-container"></div>
+                </div>
+                <button class="emoji-nav right" onclick="scrollEmojis(1)">&gt;</button>
             </div>
-            <div class="font-size">
+
+            <div class="control first-line">
+                <button onclick="onSetAlign('left')"><i class="fa-solid fa-align-left"></i></button>
+                <button onclick="onSetAlign('center')"><i class="fa-solid fa-align-center"></i></button>
+                <button onclick="onSetAlign('right')"><i class="fa-solid fa-align-right"></i></button>
                 <button onclick="onChangeFontSize(4)">A+</button>
                 <button onclick="onChangeFontSize(-4)">A-</button>
             </div>
-            <button onclick="onAddLine()"><i class="fa-solid fa-plus"></i></button>
-            <button onclick="onSwitchLine()"><i class="fa-solid fa-arrow-down-up-across-line"></i></button>
-            <button onclick="onDeleteLine()"><i class="fa-solid fa-eraser"></i></button>
-            <button onclick="onSaveMeme()"><i class="fa-solid fa-floppy-disk"></i></button>
+
+            <div class="control second-line">
+                <button data-tooltip="Add text line" onclick="onAddLine()"><i class="fa-solid fa-plus"></i></button>
+                <button data-tooltip="Switch line" onclick="onSwitchLine()"><i
+                        class="fa-solid fa-arrow-down-up-across-line"></i></button>
+                <button data-tooltip="Clear line" onclick="onDeleteLine()"><i class="fa-solid fa-eraser"></i></button>
+            </div>
+
+            <div class="control third-line">
+                <div class="control third-line">
+                    <button data-tooltip="Save" onclick="onSaveMeme()"><i class="fa-solid fa-floppy-disk"></i></button>
+                    <button data-tooltip="Download" onclick="onDownloadCanvas()"><i
+                            class="fa-solid fa-download"></i></button>
+                    <button data-tooltip="Share on Facebook" onclick="onUploadImg(event)"><i
+                            class="fa-brands fa-facebook-f"></i></button>
+                    <button data-tooltip="Upload photo from PC" class="btn" type="button"
+                        onclick="document.getElementById('imgInput').click()"> <i
+                            class="fa-solid fa-upload"></i></button>
+                    <input type="file" id="imgInput" accept="image/*" style="display:none"
+                        onchange="onImgInput(event)" />
+                </div>
+            </div>
+
         </div>
     </section>
 
     <footer class="main-footer">
         <p>&copy; 2025 Eden Ivgi. All rights reserved.</p>
     </footer>
-    <script src="https://kit.fontawesome.com/6e26e49704.js" crossorigin="anonymous"></script>
+
     <script src="js/services/meme.service.js"></script>
     <script src="js/gallery.controller.js"></script>
     <script src="js/meme.controller.js"></script>

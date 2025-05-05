@@ -1,12 +1,15 @@
 'use strict'
+var STORAGE_KEY = 'savedMemes'
 
 var gMeme = {
     selectedImgId: 1,
     selectedLineIdx: 0,
+    selectedEmojiIdx: null,
     lines: [
-        { txt: '', size: 40, color: 'black', font: 'Arial', align: 'center', x: 250, y: 60 },
-        { txt: '', size: 40, color: 'black', font: 'Arial', align: 'center', x: 250, y: 240 }
-    ]
+        { txt: '', size: 40, color: 'black', font: 'Arial', align: 'center', x: 250, y: 60, isDrag: false },
+        { txt: '', size: 40, color: 'black', font: 'Arial', align: 'center', x: 250, y: 240, isDrag: false }
+    ],
+    emojis: []
 }
 
 var gImgs = [
@@ -17,15 +20,14 @@ var gImgs = [
     { id: 5, url: 'img/real-size/007.jpg', keywords: ['man', 'funny'] },
     { id: 6, url: 'img/real-size/008.jpg', keywords: ['child', 'smile'] },
     { id: 7, url: 'img/real-size/009.jpg', keywords: ['man', 'point'] },
-    { id: 8, url: 'img/real-size/010.jpg', keywords: ['angry', 'shahar'] },
+    { id: 8, url: 'img/real-size/010.jpg', keywords: ['angry', 'poly'] },
     { id: 9, url: 'img/real-size/011.jpg', keywords: ['man', 'scientist'] },
     { id: 10, url: 'img/real-size/012.jpg', keywords: ['evil', 'man'] },
     { id: 11, url: 'img/real-size/013.jpg', keywords: ['child', 'funny'] },
     { id: 12, url: 'img/real-size/014.jpg', keywords: ['trump', 'funny'] },
     { id: 13, url: 'img/real-size/015.jpg', keywords: ['baby', 'sweet'] },
     { id: 14, url: 'img/real-size/016.jpg', keywords: ['dog', 'strange'] },
-    { id: 15, url: 'img/real-size/017.jpg', keywords: ['obama', 'smile'] },
-
+    { id: 15, url: 'img/real-size/017.jpg', keywords: ['obama', 'smile'] }
 ]
 
 function getImgs() {
@@ -33,25 +35,20 @@ function getImgs() {
 }
 
 function getImgById(id) {
-    return gImgs.find(function (img) { return img.id === id })
+    return gImgs.find(img => img.id === id)
 }
 
 function getMeme() {
     return gMeme
 }
 
+function setImg(id) {
+    gMeme.selectedImgId = id
+}
+
 function setLineTxt(txt) {
     if (gMeme.selectedLineIdx == null) return
     gMeme.lines[gMeme.selectedLineIdx].txt = txt
-}
-
-function setColor(color) {
-    if (gMeme.selectedLineIdx == null) return
-    gMeme.lines[gMeme.selectedLineIdx].color = color
-}
-
-function setImg(id) {
-    gMeme.selectedImgId = id
 }
 
 function changeFontSize(diff) {
@@ -60,11 +57,10 @@ function changeFontSize(diff) {
     line.size = Math.min(100, Math.max(10, line.size + diff))
 }
 
-function updateLineText(lineIdx, text) {
-    gMeme.lines[lineIdx].txt = text
+function setColor(color) {
+    if (gMeme.selectedLineIdx == null) return
+    gMeme.lines[gMeme.selectedLineIdx].color = color
 }
-
-var STORAGE_KEY = 'savedMemes'
 
 function saveMeme(meme, dataUrl) {
     const saved = getSavedMemes()
@@ -81,6 +77,5 @@ function getSavedMemes() {
 }
 
 function getSavedMemeById(id) {
-    return getSavedMemes().find(function (m) { return m.id === id })
+    return getSavedMemes().find(m => m.id === id)
 }
-

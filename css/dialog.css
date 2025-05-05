@@ -1,0 +1,43 @@
+/* Dialog */
+dialog {
+  border: none;
+  border-radius: 8px;
+  padding: 20px;
+  width: 300px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+dialog::backdrop {
+  background: rgba(0,0,0,0.4);
+}
+dialog h3 {
+  margin-top: 0;
+  font-size: 18px;
+  text-align: center;
+}
+dialog input {
+  display: block;
+  width: 100%;
+  margin: 8px 0;
+  padding: 6px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+dialog menu {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+}
+dialog menu button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+dialog menu button[value="cancel"] {
+  background: #ccc;
+}
+dialog menu button[type="submit"] {
+  background: #00c4cc;
+  color: white;
+}

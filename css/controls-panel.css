@@ -1,0 +1,159 @@
+/* Controls Panel */
+.controls-panel {
+  background-color: #2b2b2b;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 220px;
+}
+
+/* Inputs ו־Select */
+.controls-panel input[type="text"],
+.controls-panel select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+}
+
+/* כפתורים רגילים (למעט emoji-nav) */
+.controls-panel button:not(.emoji-nav) {
+  background-color: #00c4cc;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  align-self: flex-start;
+}
+
+.controls-panel button:not(.emoji-nav):hover {
+  background-color: #089fa4;
+}
+
+/* Generic control wrapper */
+.control {
+  background-color: #336e71;
+  border-radius: 4px;
+  padding: 8px 12px;
+}
+
+.control button {
+  width: 36px;
+}
+
+/* Emoji panel */
+.emoji-panel {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.emoji-nav {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #00c4cc;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emojis-window {
+  overflow: hidden;
+  width: 200px;
+}
+
+.emojis-container {
+  display: flex;
+  gap: 8px;
+  transition: transform 0.3s;
+}
+
+.emoji-panel .emojis-container img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  cursor: pointer;
+  margin: 0 4px;
+}
+
+/* First Line */
+.control.first-line {
+  display: flex;
+  gap: 8px;
+}
+
+/* Second Line */
+.control.second-line {
+  display: flex;
+  gap: 8px;
+}
+
+/* Third Line: כפתורים גדולים ועגולים */
+.control.third-line {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #c4d8f5;
+  padding: 12px;
+  border-radius: 12px;
+  gap: 16px;
+}
+
+.control.third-line button {
+  width: 50px;
+  height: 50px;
+  background-color: #bab4e7;
+  color: #333;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+/* Hover effect ל־third-line */
+.control.third-line button:hover {
+  background-color: #4b9dd0;
+  transform: scale(1.1);
+}
+
+/* Tooltip – חלים על כל כפתור עם data-tooltip בתוך .controls-panel */
+.controls-panel button[data-tooltip] {
+  position: relative;
+}
+
+.controls-panel button[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+  z-index: 10;
+}
+
+.controls-panel button[data-tooltip]:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-12px);
+}
+
