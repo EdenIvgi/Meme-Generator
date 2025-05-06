@@ -104,24 +104,3 @@ section.about .about-content ul li strong {
   margin-bottom: 8px;
 }
 
-@media (max-width: 1024px) {
-  section.about .about-content ul {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 600px) {
-  section.about {
-    padding: 60px 15px;
-  }
-  section.about .about-content {
-    padding: 30px 20px;
-  }
-  section.about .about-content h2 {
-    font-size: 2.2rem;
-  }
-  section.about .about-content ul {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-}

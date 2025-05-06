@@ -41,7 +41,7 @@
 .btn-upload:hover {
   background-color: #089fa4;
 }
-#keyword-cloud {
+.keyword-cloud {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;

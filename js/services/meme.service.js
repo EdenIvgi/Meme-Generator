@@ -1,4 +1,5 @@
 'use strict'
+
 var STORAGE_KEY = 'savedMemes'
 
 var gMeme = {
@@ -29,6 +30,7 @@ var gImgs = [
     { id: 14, url: 'img/real-size/016.jpg', keywords: ['dog', 'strange'] },
     { id: 15, url: 'img/real-size/017.jpg', keywords: ['obama', 'smile'] }
 ]
+
 
 function getImgs() {
     return gImgs
@@ -67,12 +69,7 @@ function saveMeme(meme, dataUrl) {
     const memento = {
         selectedImgId: meme.selectedImgId,
         lines: meme.lines.map(l => ({ ...l })),
-        emojis: meme.emojis.map(e => ({
-            src: e.src,
-            x: e.x,
-            y: e.y,
-            size: e.size
-        })),
+        emojis: meme.emojis.map(e => ({ src: e.src, x: e.x, y: e.y, size: e.size })),
         dataUrl,
         id: Date.now()
     }
@@ -86,5 +83,5 @@ function getSavedMemes() {
 }
 
 function getSavedMemeById(id) {
-    return getSavedMemes().find(meme => meme.id === id)
+    return getSavedMemes().find(m => m.id === id)
 }
